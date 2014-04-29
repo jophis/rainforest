@@ -2,7 +2,16 @@ class ProductsController < ApplicationController
   before_filter :ensure_logged_in, :only => [:show]
   
   def index
-  	@products = Product.all
+    @products = if params[:search]
+      Product.where("name LIKE ?", "%#{params[:search]}%")
+    else
+  	 Product.all
+    end
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def show
@@ -38,6 +47,11 @@ class ProductsController < ApplicationController
   		render :edit
   	end
   end
+
+  # def search
+  #   @products = Product.where("name ILIKE ?", "%#{params[:search]}%")
+  #   render @products
+  # end
 
   def destroy
   	@product = Product.find(params[:id])
