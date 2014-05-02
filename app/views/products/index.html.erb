@@ -1,6 +1,9 @@
 <h1>Products#index</h1>
 
 <%= link_to "Post a new Product", new_product_path %>
+<h1>Products <small><%= page_entries_info @products %></small></h1>
+
+<hr/>
 
 <%= form_tag products_path, method: :get, authentication: false, id: 'search-form' do %>
   <%= text_field_tag :search, params[:search] %>
@@ -11,5 +14,5 @@
   <%= render @products %>
 </div>
 
-
+<%= paginate @products %>
 

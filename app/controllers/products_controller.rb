@@ -5,12 +5,19 @@ class ProductsController < ApplicationController
     @products = if params[:search]
       Product.where("name LIKE ?", "%#{params[:search]}%")
     else
-  	 Product.all
+  	 # @products = @products.page(params[:page])Product.all
+     Product.all     
     end
+
+    @products = @products.order("created_at DESC").page(params[:page])
+
+    # @products = @products.page(params[:page]).order("created_at DESC").page(params[:page])
+
 
     respond_to do |format|
       format.html
       format.js
+      # format.json {render json: @products}
     end
   end
 

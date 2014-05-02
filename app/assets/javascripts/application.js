@@ -1,15 +1,3 @@
-$(document).ready(function() {
-  $('#search-form').submit(function(event) {
-    event.preventDefault();
-    var searchValue = $('#search').val();
-
-   $.getScript('/products?search=' + searchValue);
-  });
-});
-
-
-
-
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
 //
@@ -27,4 +15,24 @@ $(document).ready(function() {
 //= require turbolinks
 //= require_tree .
 
+
+$(document).ready(function() {
+  $('#search-form').submit(function(event) {
+    event.preventDefault();
+    var searchValue = $('#search').val();
+
+   $.getScript('/products?search=' + searchValue);
+  });
+
+  if ($('.pagination').length) {
+    $(window).scroll(function() {
+      var url;
+      url = $('.pagination span.next').children().attr('href');
+      if (url && $(window).scrollTop() > $(document).height() - $(window).height() - 50) {
+        $('.pagination').text("Fetching more products...");
+        return $.getScript(url);
+      }
+    });
+  } 
+});
 
