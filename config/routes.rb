@@ -1,5 +1,8 @@
 
 Rainforest::Application.routes.draw do
+  get "comments/show"
+  get "comments/create"
+  get "comments/destroy"
   get "reviews/show"
   get "reviews/new"
   get "reviews/edit"
